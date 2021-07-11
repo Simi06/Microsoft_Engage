@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Login Form</title>
+	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Server Auth</title>
+    <link rel="stylesheet" href="login_signup.css" />
+    <script
+      src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"
+      defer
+    ></script>
+</head>
+<body>
+	<img class="wave" src="wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="bg.svg">
+		</div>
+		<div class="login-content">
+			<form id="login"  action="#">
+				<img src="avatar.svg">
+				<h3 class="title">Welcome Back!</h3>
+				<br>
+				<br>
+							<div class="input-div one">
+								<div class="i">
+										<i class="fas fa-user"></i>
+								</div>
+								<div class="div">
+										<h5>Email</h5>
+										<input type="email" name="login" class="input">
+								</div>
+						</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" name="password" class="input">
+            	   </div>
+            	</div>
+            	<!-- <a href="#">Forgot Password?</a> -->
+            	<input type="submit" class="btn" value="Login">
+
+							<p class="social-text">Or use social platforms</p>
+            <div class="social-media">
+              <a href="#" id="login1" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" id="login2" class="social-icon">
+                <i class="fab fa-github"></i>
+							</a>
+                <a href="#" id="login3" class="social-icon">
+                  <i class="fab fa-facebook"></i>
+								</a>
+                  <a href="#" id="login4" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+
+		<script>
+			window.addEventListener("DOMContentLoaded", () => {
+				var firebaseConfig = {
+				apiKey: "AIzaSyDkTudmftGqbdJxtegF1JY7WGao0k7-fLY",
+				authDomain: "engage-micro.firebaseapp.com",
+				databaseURL: "https://engage-micro-default-rtdb.asia-southeast1.firebasedatabase.app",
+				projectId: "engage-micro",
+				storageBucket: "engage-micro.appspot.com",
+				messagingSenderId: "539257421836",
+				appId: "1:539257421836:web:51464c3b78114c5666ee29",
+				measurementId: "G-YB1TJ998TS"
+				};	
+				// Initialize Firebase
+				firebase.initializeApp(firebaseConfig);
+
+				// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+
+				firebase.auth().onAuthStateChanged(firebaseUser => {
+					console.log(firebaseUser);
+				if(firebaseUser){
+					window.location.href = "/room"
+				}
+				else{
+					console.log("not logged in")
+				}
+			})
+
+				document
+					.getElementById("login")
+					.addEventListener("submit", (event) => {
+							event.preventDefault();
+						const login = event.target.login.value;
+						const password = event.target.password.value;
+						//internal login
+						firebase
+							.auth()
+							.signInWithEmailAndPassword(login, password)
+							.then(({ user }) => {
+								return user.getIdToken().then((idToken) => {
+									return fetch("/sessionLogin", {
+										method: "POST",
+										headers: {
+											Accept: "application/json",
+											"Content-Type": "application/json",
+											"CSRF-Token": Cookies.get("XSRF-TOKEN"),
+										},
+										body: JSON.stringify({ idToken }),
+									});
+								});
+							})
+						return false;
+					});
+
+					document.getElementById("login1").addEventListener('click',googlelogin)
+            let provider1 = new firebase.auth.GoogleAuthProvider();
+
+            function googlelogin()
+            {
+													firebase
+							.auth()
+							.signInWithPopup(provider1)
+							.catch((error) => {
+							alert(error.message);
+							});
+												}
+
+					//github login
+					document.getElementById("login2").addEventListener('click',githublogin)
+					let provider2 = new firebase.auth.GithubAuthProvider();
+
+					function githublogin()
+					{
+						firebase
+						.auth()
+						.signInWithPopup(provider2)
+						.catch((error) => {
+						alert(error.message);
+						});
+											}
+		
+
+			
+
+				// facebook login
+				document.getElementById("login3").addEventListener('click',facebooklogin)
+            let provider3 = new firebase.auth.FacebookAuthProvider();
+
+            function facebooklogin()
+            {
+              firebase
+              .auth()
+              .signInWithPopup(provider3)
+              .catch((error) => {
+              alert(error.message);
+              });
+                        }
+
+			//twitter login
+			document.getElementById("login4").addEventListener('click',twitterlogin)
+            let provider4 = new firebase.auth.TwitterAuthProvider();
+
+            function twitterlogin()
+							{
+								firebase
+				.auth()
+				.signInWithPopup(provider4)
+				.catch((error) => {
+				alert(error.message);
+				});
+									}
+								});
+		</script>
+<script src="main.js"></script>
+
+
+<style>
+
+#login1{
+	background-color: rgb(197, 27, 5);
+	color: #fff;
+}
+#login2{
+	background-color: rgb(25, 25, 25);
+	color: #fff;
+}
+#login3{
+	background-color: rgb(21, 31, 220);
+	color: #fff;
+}
+#login4{
+	background-color: rgb(32, 199, 245);
+	color: #fff;
+}
+</style>
+</body>
+</html>
