@@ -138,10 +138,10 @@ git clone https://github.com/Simi06/Microsoft_Engage.git
 
 ## **Snapshots :**
 
-<img width = "400" src = "./media/welcome.png">
-<img  width = "400" src = "./media/Signup.png">
-<img width = "400" src = "./media/Login.png">
-<img  width = "400" src = "./media/MeetingRoom.png">
+<img width = "900" src = "./media/welcome.png">
+<img  width = "900" src = "./media/Signup.png">
+<img width = "900" src = "./media/Login.png">
+<img  width = "900" src = "./media/MeetingRoom.png">
 
 
 
