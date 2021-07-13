@@ -74,14 +74,14 @@ Scrum is an **Agile** development methodology used in the development of softwar
     4.  Authenticate email and password.
     5.  Research about other features.
     6.  Implementation of WebRTC.
-    #### *Bugs* : Authentication using Twitter.
+     ***Bugs* : Authentication using Twitter and Facebook(Privacy Policy of these platforms).**
 
 - #### **Week 3** :
     1.  Add extra features like mute, camera off.
     2.  Improve the User Interface.
     3.  Improving the WebRTC Handshake Connection.
     4.  Add the Screen Share feature.
-    #### *Bugs* : Not working globally, Screen Share cannot be viewed on FullScreen.
+    ***Bugs* : Not working globally, Screen Share cannot be viewed on FullScreen.**
 
 - #### **Week 4** :  
     1.  Add logo.
@@ -91,7 +91,7 @@ Scrum is an **Agile** development methodology used in the development of softwar
     4.  Try to implement adopt feature.
     5.  Update README.
     6.  Create demo video.
-    #### *Bugs* : Globally not working on some ISPs.
+    ***Bugs* : Globally not working on some ISPs.**
 
 
 
